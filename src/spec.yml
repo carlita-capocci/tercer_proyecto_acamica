@@ -1,0 +1,14 @@
+paths:
+  /usuarios:
+    get:
+      tags:
+        - Usuarios
+      summary: Retorna todos los usuarios.
+      description: Retorna el conjunto de usuarios en formato json.
+      responses:
+        '200':
+          description: Devuelve una lista de usuarios. Puede devolver una lista vacia.
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Posts'
