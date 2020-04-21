@@ -1,8 +1,11 @@
+const soloLogueado = require("../middleware/soloLogueado");
+const soloAdmin = require("../middleware/soloAdmin");
+
 module.exports= function(app, conn){
 
 
 
-app.get('/platos', (request, response) => {
+app.get('/platos',soloLogueado, (request, response) => {
     conn.query(
         'SELECT * FROM platos',
         (error, result, field) => {
@@ -17,7 +20,7 @@ app.get('/platos', (request, response) => {
 });
 
 
-app.post('/platos', (request, response) => {
+app.post('/platos', soloAdmin, (request, response) => {
     const plato = request.body;
     if (plato.nombre === undefined || plato.precio === undefined) {
         return response.status(400).send('campos requeridos: nombre, precio')
@@ -31,14 +34,14 @@ app.post('/platos', (request, response) => {
                 response.json(error);
 
             } else {
-                response.json(result);
+                response.json({status:'ok'});
             }
         }
     );
 });
 
 
-app.patch('/platos/:id', (request, response) => {
+app.patch('/platos/:id', soloAdmin, (request, response) => {
     const plato = request.body;
     if (plato.nombre === undefined && plato.precio === undefined) {
         return response.status(400).send('campos requeridos: nombre, precio')
@@ -49,7 +52,7 @@ app.patch('/platos/:id', (request, response) => {
                 response.json(error);
 
             } else {
-                response.json(result);
+                response.json({status:'ok'});
             }
         }
     );
@@ -57,14 +60,14 @@ app.patch('/platos/:id', (request, response) => {
 
 
 
-app.delete('/platos/:idPlato', (request, response) => {
+app.delete('/platos/:idPlato', soloAdmin, (request, response) => {
     conn.query(
         `DELETE FROM platos WHERE plato_id=${request.params.idPlato}`,
         (error, result, field) => {
             if(error) {
                 response.json(error);
             } else {
-                response.json(result);
+                response.json({status:'ok'});
             }
         }
     );

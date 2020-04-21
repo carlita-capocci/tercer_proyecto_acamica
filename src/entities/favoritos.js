@@ -1,10 +1,14 @@
+const soloLogueado = require("../middleware/soloLogueado");
+const usuarioActivo = require("../middleware/usuarioActivo");
+const soloAdmin = require("../middleware/soloAdmin");
+
 module.exports= function(app, conn){
 
 
 
-  app.get('/favoritos', (request, response) => {
+  app.get('/favoritos',soloLogueado, (request, response) => {
       conn.query(
-          'SELECT * FROM favoritos',
+          `SELECT * FROM favoritos WHERE user_id=${request.usuario.user_id}`,
           (error, result, field) => {
               if (error) {
                   response.json(error);
@@ -17,34 +21,34 @@ module.exports= function(app, conn){
   });
   
   
-  app.post('/favoritos', (request, response) => {
+  app.post('/favoritos', soloLogueado, (request, response) => {
       const favorito = request.body;
-      if (favorito.plato_id === undefined || favorito.user_id === undefined) {
-          return response.status(400).send('campos requeridos: plato_id, user_id')
+      if (favorito.plato_id === undefined) {
+          return response.status(400).send('campos requeridos: plato_id')
       }
       conn.query(
           `INSERT INTO favoritos(
               plato_id, user_id)
-              VALUE("${favorito.plato_id}",${favorito.user_id})`,
+              VALUE("${favorito.plato_id}",${request.usuario.user_id})`,
           (error, result, field) => {
               if (error) {
                   response.json(error);
   
               } else {
-                  response.json(result);
+                  response.json({status:'ok'});
               }
           }
       );
   });
    
-  app.delete('/favoritos/:idUser/:idPlato', (request, response) => {
+  app.delete('/favoritos/:idPlato',soloLogueado, (request, response) => {
       conn.query(
-          `DELETE FROM favoritos WHERE plato_id=${request.params.idPlato} AND user_id=${request.params.idUser}`,
+          `DELETE FROM favoritos WHERE plato_id=${request.params.idPlato} AND user_id=${request.usuario.user_id}`,
           (error, result, field) => {
               if(error) {
                   response.json(error);
               } else {
-                  response.json(result);
+                  response.json({status:'ok'});
               }
           }
       );
