@@ -69,7 +69,13 @@ app.delete('/usuarios/:id', soloAdmin, (request, response) => {
                 response.json({error});
 
             } else {
-                response.json(result);
+                
+                    response.json({
+                        status:'ok'
+                    });
+
+                
+               
             }
         }
     );

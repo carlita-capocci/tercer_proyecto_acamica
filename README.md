@@ -15,6 +15,8 @@ La creación de la siguiente API se desarrolló en el marco del tercer proyecto 
 
 ## Cómo usarlo
 
+### Instalación
+
 Primero clonamos el repositorio
 
 ```bash
@@ -33,15 +35,46 @@ Instalamos las dependencias
 npm install
 ```
 
-Corremos el proyecto 
+### Base de datos
+
+El archivo de base de datos se encuentra en './base.sql'
+
+Para poder correr satisfactoriamente el proyecto es necesario contar con una instancia del servidor de base de datos MySQL
+
+Para poder crear la base de datos
+
+```bash
+mysql -u [user] -p < base.sql
+
+```
+
+Luego debemos actualizar las credenciales de base de datos en el archivo server.js. Actualizar las lineas
+
+```javascript
+    host: 'localhost',
+    user: 'root',
+    password: 'carla123',
+    database: 'resto',
+
+```
+
+### Corremos el proyecto 
 
 ```bash
 node src/server
 ```
 
+
 ## Endpoints
+
 
 - [Usuarios](./docs/usuarios.md)
 - [Pedidos](./docs/pedidos.md)
 - [Platos](./docs/platos.md)
 - [Favoritos](./docs/favoritos.md)
+
+
+
+## Especificacion de la API
+
+La especificacion de la API, segun el standar open API (Swagger) se encuentra en '/docs/swagger.json'

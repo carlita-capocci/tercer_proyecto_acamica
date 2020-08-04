@@ -121,7 +121,7 @@ module.exports = function (app, conn) {
                     response.json(error);
     
                 } else {
-                    response.json(result);
+                    response.json({status: "ok"});
                 }
             }
         );
@@ -139,7 +139,7 @@ module.exports = function (app, conn) {
                     response.json(error);
     
                 } else {
-                    response.json(result);
+                    response.json({status: "ok"});
                 }
             }
         );
@@ -169,7 +169,7 @@ module.exports = function (app, conn) {
                                 response.json(error);
             
                             } else {
-                                response.json(result);
+                                response.json({status: "ok"});
                             }
                         }
                     );
@@ -186,7 +186,7 @@ module.exports = function (app, conn) {
                 if(error) {
                     response.json(error);
                 } else {
-                    response.json(result);
+                    response.json({status: "ok"});
                 }
             }
         );

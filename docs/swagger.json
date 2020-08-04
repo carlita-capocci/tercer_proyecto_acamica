@@ -1,0 +1,1012 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Backend ::Deliah Restó:: App",
+      "version": "1.0.0",
+      "title": "Deliah Restó REST API",
+      "contact": {
+        "email": "carla.a.capocci@gmail.com"
+      },
+      "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      }
+    },
+    "host": "localhost:33333",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Usuarios",
+        "description": "Usuarios endpoints"
+      },
+      {
+        "name": "Pedidos",
+        "description": "Pedidos endpoints"
+      },
+      {
+        "name": "Platos",
+        "description": "Platos endpoints"
+      },
+      {
+        "name": "Favoritos",
+        "description": "Favoritos endpoints"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/favoritos/{id}": {
+        "delete": {
+          "tags": [
+            "Favoritos"
+          ],
+          "summary": "eliminar",
+          "description": "elimina los favoritos",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del plato"
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOK"
+              }
+            }
+          }
+        }
+      },
+      "/favoritos": {
+        "post": {
+          "tags": [
+            "Favoritos"
+          ],
+          "summary": "agrega",
+          "description": "Agrega favoritos",
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Platos"
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Favoritos"
+          ],
+          "summary": "traer",
+          "description": "trae todos los favoritos",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "listado de favoritos",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Favoritos"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/usuarios": {
+        "get": {
+          "tags": [
+            "Usuarios"
+          ],
+          "summary": "traer",
+          "description": "trae todos los usuarios",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "listado de usuarios",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Usuario"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "Usuarios"
+          ],
+          "summary": "crear",
+          "description": "crea un usuario nuevo",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "datos",
+              "description": "datos de usuario",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuario": {
+                    "type": "string"
+                  },
+                  "nombre_y_apellido": {
+                    "type": "string"
+                  },
+                  "telefono": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "direccion": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "ok",
+              "schema": {
+                "$ref": "#/definitions/ResponseOK"
+              }
+            }
+          }
+        }
+      },
+      "/usuarios/{id}": {
+        "delete": {
+          "tags": [
+            "Usuarios"
+          ],
+          "summary": "eliminar",
+          "description": "elimina un usuario",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del usuario"
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOK"
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "Usuarios"
+          ],
+          "summary": "modificar",
+          "description": "modifica datos de un usuario",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del usuario"
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "datos",
+              "description": "datos de usuario",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuario": {
+                    "type": "string"
+                  },
+                  "nombre_y_apellido": {
+                    "type": "string"
+                  },
+                  "telefono": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "direccion": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOK"
+              }
+            }
+          }
+        },
+        "patch": {
+          "tags": [
+            "Usuarios"
+          ],
+          "summary": "editar",
+          "description": "solo el admin puede modificar los datos del usuario",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del usuario"
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "datos",
+              "description": "datos de usuario",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuario": {
+                    "type": "string"
+                  },
+                  "nombre_y_apellido": {
+                    "type": "string"
+                  },
+                  "telefono": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "direccion": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "/usuarios/login": {
+        "post": {
+          "tags": [
+            "Usuarios"
+          ],
+          "summary": "login",
+          "description": "devuelve un token",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "credenciales",
+              "description": "credenciales de usuario",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuario": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "login del usuario",
+              "schema": {
+                "$ref": "#/definitions/Login"
+              }
+            }
+          }
+        }
+      },
+      "/platos": {
+        "post": {
+          "tags": [
+            "Platos"
+          ],
+          "summary": "agregar",
+          "description": "Agregar un plato",
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Platos"
+          ],
+          "summary": "traer",
+          "description": "Lista los platos",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "listado de platos",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Platos"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/platos/{id}": {
+        "patch": {
+          "tags": [
+            "Platos"
+          ],
+          "summary": "editar",
+          "description": "solo el admin",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del plato"
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "datos",
+              "description": "datos de plato",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "precio": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "delete": {
+          "tags": [
+            "Platos"
+          ],
+          "summary": "eliminar",
+          "description": "elimina un plato",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del plato"
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Platos"
+              }
+            }
+          }
+        }
+      },
+      "/pedidos": {
+        "get": {
+          "tags": [
+            "Pedidos"
+          ],
+          "summary": "traer",
+          "description": "trae todos los pedidos solo para el admin",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "listado de favoritos",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Pedidos"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "Pedidos"
+          ],
+          "summary": "agregar",
+          "description": "Agregar un pedido",
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/mis-pedidos": {
+        "get": {
+          "tags": [
+            "Pedidos"
+          ],
+          "summary": "traer",
+          "description": "trae todos los pedidos del usuario",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "listado de pedidos",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Pedidos"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/pedidos/{id}": {
+        "delete": {
+          "tags": [
+            "Pedidos"
+          ],
+          "summary": "eliminar",
+          "description": "elimina un pedido",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del pedido"
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Pedidos"
+              }
+            }
+          }
+        },
+        "patch": {
+          "tags": [
+            "Pedidos"
+          ],
+          "summary": "editar",
+          "description": "solo el admin",
+          "parameters": [
+            {
+              "name": "id",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del pedido"
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "datos",
+              "description": "datos de pedido",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fecha": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "fp_id": {
+                    "type": "integer"
+                  },
+                  "estado_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOK"
+              }
+            }
+          }
+        }
+      },
+      "/pedidos/{idPedido}/platos/": {
+        "post": {
+          "tags": [
+            "Pedidos"
+          ],
+          "summary": "agregar",
+          "description": "Agregar un plato a un pedido",
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "idPedido",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del pedido"
+            },
+            {
+              "in": "body",
+              "name": "datos",
+              "description": "datos del pedido plato",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cantidad": {
+                    "type": "integer"
+                  },
+                  "plato_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOK"
+              }
+            }
+          }
+        }
+      },
+      "/pedidos/{idPedido}/plato/{idPedidosPlato}": {
+        "patch": {
+          "tags": [
+            "Pedidos"
+          ],
+          "summary": "editar",
+          "description": "solo el admin",
+          "parameters": [
+            {
+              "name": "idPedido",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del pedido"
+            },
+            {
+              "name": "idPedidosPlato",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del pedido plato"
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "datos",
+              "description": "datos de pedido",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "plato_id": {
+                    "type": "integer"
+                  },
+                  "precio": {
+                    "type": "number"
+                  },
+                  "cantidad": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ResponseOK"
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "Pedidos"
+          ],
+          "summary": "eliminar",
+          "description": "elimina un pedido plato",
+          "parameters": [
+            {
+              "name": "idPedido",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del pedido"
+            },
+            {
+              "name": "idPedidosPlato",
+              "required": true,
+              "in": "path",
+              "type": "string",
+              "description": "Id del pedido plato"
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT Token",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Pedidos"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Login": {
+        "type": "object",
+        "properties": {
+          "loggedIn": {
+            "type": "boolean"
+          },
+          "usuario": {
+            "type": "object",
+            "properties": {
+              "usuario": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "rol": {
+                "type": "string"
+              }
+            }
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseOK": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer"
+          },
+          "usuario": {
+            "type": "string"
+          },
+          "telefono": {
+            "type": "string"
+          },
+          "nombre_y_apellido": {
+            "type": "string"
+          },
+          "direccion": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "rol": {
+            "type": "string"
+          }
+        }
+      },
+      "Platos": {
+        "type": "object",
+        "properties": {
+          "plato_id": {
+            "type": "integer"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "precio": {
+            "type": "number"
+          }
+        }
+      },
+      "Pedidos": {
+        "type": "object",
+        "properties": {
+          "pedido_id": {
+            "type": "integer"
+          },
+          "fecha": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "fp_id": {
+            "type": "integer"
+          },
+          "estado_id": {
+            "type": "integer"
+          },
+          "platos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "pedidos-plato_id": {
+                  "type": "integer"
+                },
+                "plato_id": {
+                  "type": "integer"
+                },
+                "precio": {
+                  "type": "number"
+                },
+                "cantidad": {
+                  "type": "number"
+                },
+                "nombre": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Favoritos": {
+        "type": "object",
+        "properties": {
+          "pedido_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
